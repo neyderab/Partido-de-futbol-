@@ -1,0 +1,121 @@
+class Player:
+    def __init__(self, name, age, position):
+        self.name = name
+        self.age = age
+        self.position = position
+        self.goals = 0
+        self.retired = False
+
+    def score(self):
+        self.goals += 1
+        print(self.name, "marco un gol")
+
+    def transfer(self, team):
+        print(self.name, "fue transferido a", team)
+
+    def retire(self):
+        self.retired = True
+        print(self.name, "se retiro con", self.goals, "goles")
+
+
+class Coach:
+    def __init__(self, name, experience_years):
+        self.name = name
+        self.experience_years = experience_years
+
+    def give_instructions(self):
+        print(self.name, "dice: jugar al ataque")
+
+
+class Stadium:
+    def __init__(self, name, capacity, location):
+        self.name = name
+        self.capacity = capacity
+        self.location = location
+
+
+class FootballTeam:
+    def __init__(self, name, trophies):
+        self.name = name
+        self.trophies = trophies
+        self.coach = None
+
+    def hire_coach(self, coach):
+        self.coach = coach
+        print(coach.name, "es el entrenador de", self.name)
+
+    def compare(self, team):
+        if self.trophies > team.trophies:
+            print(self.name, "tiene mas trofeos")
+        elif self.trophies < team.trophies:
+            print(team.name, "tiene mas trofeos")
+        else:
+            print("tienen los mismos trofeos")
+
+
+class ClubTeam(FootballTeam):
+    def __init__(self, name, trophies, stadium):
+        super().__init__(name, trophies)
+        self.players = []
+        self.stadium = stadium
+
+    def sign_player(self, player):
+        self.players.append(player)
+        print(player.name, "ahora juega en", self.name)
+
+
+class League:
+    def __init__(self):
+        self.teams = []
+
+    def add_team(self, team):
+        self.teams.append(team)
+
+    def show_table(self):
+        for team in self.teams:
+            print(team.name, "-", team.trophies, "trofeos")
+
+
+class Match:
+    def __init__(self, team1, team2):
+        self.team1 = team1
+        self.team2 = team2
+
+    def play(self):
+        if self.team1.trophies >= self.team2.trophies:
+            print("ganador:", self.team1.name)
+        else:
+            print("ganador:", self.team2.name)
+
+
+# ejemplo
+
+stadium = Stadium("El Campin", 36000, "Bogota")
+
+player = Player("Luis", 22, "Delantero")
+
+coach = Coach("Carlos", 5)
+
+team1 = ClubTeam("Bogota FC", 5, stadium)
+team2 = ClubTeam("Medellin FC", 3, stadium)
+
+team1.hire_coach(coach)
+coach.give_instructions()
+
+team1.sign_player(player)
+
+player.score()
+player.transfer("Medellin FC")
+
+match = Match(team1, team2)
+match.play()
+
+team1.compare(team2)
+
+league = League()
+league.add_team(team1)
+league.add_team(team2)
+league.show_table()
+
+player.retire()
+
