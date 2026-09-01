@@ -27,5 +27,5 @@ python football_team_project.py
 
 El proyecto busca mostrar de una forma sencilla como funcionan las clases, objetos, atributos, metodos y la herencia en Python.
 
-#Autores
+## Autores
 Neyder Arenas, Nicole Lamprea, Camilo Cueto
